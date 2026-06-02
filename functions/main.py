@@ -29,6 +29,10 @@ DEFAULT_LOCATION = {
 os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".matplotlib"))
 os.environ.setdefault("XDG_CACHE_HOME", str(ROOT / ".cache"))
 
+if os.getenv("VERCEL"):
+    os.environ["MPLCONFIGDIR"] = "/tmp/.matplotlib"
+    os.environ["XDG_CACHE_HOME"] = "/tmp/.cache"
+
 RESTAURANTES_EXEMPLO = [
     {
         "id": "sabor_ceara",
@@ -503,6 +507,7 @@ class RecomendacaoHandler(BaseHTTPRequestHandler):
 
     def _processar_requisicao(self, enviar_corpo):
         url = urlparse(self.path)
+        url = _normalizar_url_vercel(url)
 
         if url.path == "/style.css":
             self._responder_texto(STYLE_PATH.read_text(encoding="utf-8"), "text/css", enviar_corpo)
@@ -563,6 +568,17 @@ def iniciar_servidor(host="127.0.0.1", porta=8000):
     print(f"Servidor iniciado em http://{host}:{porta}")
     print("Use Ctrl+C para encerrar.")
     servidor.serve_forever()
+
+
+def _normalizar_url_vercel(url):
+    if url.path != "/api":
+        return url
+
+    parametros = parse_qs(url.query, keep_blank_values=True)
+    caminho = parametros.pop("path", [""])[0].strip()
+    caminho = f"/{caminho}" if caminho else "/"
+    query = urlencode(parametros, doseq=True)
+    return url._replace(path=caminho, query=query)
 
 
 def main():

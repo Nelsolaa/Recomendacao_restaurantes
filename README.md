@@ -69,6 +69,25 @@ http://127.0.0.1:8000
 
 Para encerrar o servidor, use `Ctrl+C` no terminal.
 
+## Deploy na Vercel
+
+O projeto tambem possui uma entrada serverless para deploy na Vercel:
+
+- `api/index.py`: handler Python usado pela Vercel.
+- `vercel.json`: redireciona as rotas da aplicacao para o handler.
+- `.vercelignore`: evita enviar arquivos locais desnecessarios no deploy.
+
+Passos para publicar:
+
+1. Suba este projeto para um repositorio no GitHub.
+2. Acesse a Vercel e clique em `Add New Project`.
+3. Importe o repositorio do GitHub.
+4. Mantenha as configuracoes padrao do projeto.
+5. Em `Environment Variables`, adicione a chave `API_KEY` ou `GOOGLE_MAPS_API_KEY`, se quiser usar dados reais do Google.
+6. Clique em `Deploy`.
+
+Sem variavel de ambiente da API, a aplicacao ainda funciona na Vercel usando os dados de exemplo.
+
 ## Configuracao da API do Google
 
 A aplicacao funciona sem chave de API usando dados de exemplo. Para buscar restaurantes reais, crie um arquivo `.env` na raiz do projeto com uma das variaveis abaixo:
