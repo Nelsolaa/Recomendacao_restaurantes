@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomendacao de Restaurantes</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="search-section">
+            <h1>Recomendacao de Restaurantes</h1>
+            {{mensagens}}
+            <form action="/" method="get" class="search-form" id="search-form">
+                <label class="field">
+                    Tipo de restaurante
+                    <input type="text" name="tipo" value="{{tipo}}" placeholder="italiano, japones, regional">
+                </label>
+
+                <label class="field">
+                    Raio de distancia
+                    <input type="text" name="raio" value="{{raio}}" placeholder="2km, 500m ou 3">
+                </label>
+
+                <label class="field">
+                    Nota minima
+                    <input type="number" name="nota_minima" value="{{nota_minima}}" min="0" max="5" step="0.1">
+                </label>
+
+                <label class="field">
+                    Cidade
+                    <input type="text" name="cidade" value="{{cidade}}" placeholder="Fortaleza">
+                </label>
+
+                <label class="field">
+                    Estado
+                    <input type="text" name="estado" value="{{estado}}" placeholder="CE" maxlength="2">
+                </label>
+
+                <label class="field field-wide">
+                    Endereco
+                    <input type="text" name="endereco" value="{{endereco}}" placeholder="Rua, avenida ou bairro">
+                </label>
+
+                <label class="field">
+                    Numero
+                    <input type="text" name="numero" value="{{numero}}" placeholder="120">
+                </label>
+
+                <input type="hidden" name="latitude" id="latitude" value="{{latitude}}">
+                <input type="hidden" name="longitude" id="longitude" value="{{longitude}}">
+
+                <button type="button" class="secondary-button" id="location-button">Usar localizacao</button>
+                <button type="submit">Procurar</button>
+            </form>
+        </section>
+
+        <section class="graph-section" aria-labelledby="graph-title">
+            <div class="section-title">
+                <h2 id="graph-title">Grafo da busca</h2>
+                <span>{{total_label}}</span>
+            </div>
+            <img class="graph-image" src="{{graph_src}}" alt="Grafo gerado pelo NetworkX">
+        </section>
+
+        <section class="cards-section" aria-labelledby="cards-title">
+            <h2 id="cards-title">Restaurantes proximos</h2>
+            <div class="cards-grid">
+                {{cards}}
+            </div>
+        </section>
+    </main>
+    <script>
+        const locationButton = document.querySelector("#location-button");
+        const latitudeInput = document.querySelector("#latitude");
+        const longitudeInput = document.querySelector("#longitude");
+        const searchForm = document.querySelector("#search-form");
+
+        locationButton.addEventListener("click", () => {
+            if (!navigator.geolocation) {
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition((position) => {
+                latitudeInput.value = position.coords.latitude.toFixed(6);
+                longitudeInput.value = position.coords.longitude.toFixed(6);
+                locationButton.textContent = "Localizacao definida";
+                searchForm.submit();
+            }, () => {
+                locationButton.textContent = "Preencha endereco";
+            });
+        });
+    </script>
+</body>
+</html>
