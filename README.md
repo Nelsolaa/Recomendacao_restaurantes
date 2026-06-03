@@ -3,6 +3,8 @@
 Aplicacao web em Python que recomenda restaurantes a partir de filtros do usuario e representa a busca como um grafo. A ideia principal do projeto e tratar o usuario como o no inicial do grafo e cada restaurante encontrado como um no conectado a ele. A distancia ate cada restaurante vira o peso da aresta.
 
 Com isso, o sistema consegue mostrar os restaurantes mais proximos usando Dijkstra e tambem registrar uma ordem de visita usando BFS.
+# URL da aplicacao
+https://recomendacao-restaurantes.vercel.app
 
 ## O que o projeto faz
 
