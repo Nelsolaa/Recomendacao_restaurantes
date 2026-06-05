@@ -6,6 +6,9 @@ Com isso, o sistema consegue mostrar os restaurantes mais proximos usando Dijkst
 # URL da aplicacao
 https://recomendacao-restaurantes.vercel.app
 
+## Link do repositório
+https://recomendacao-restaurantes.vercel.app
+
 ## O que o projeto faz
 
 - Recebe filtros de busca pelo formulario: tipo de restaurante, raio, nota minima e localizacao.
