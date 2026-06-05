@@ -7,7 +7,7 @@ Com isso, o sistema consegue mostrar os restaurantes mais proximos usando Dijkst
 https://recomendacao-restaurantes.vercel.app
 
 ## Link do repositório
-https://recomendacao-restaurantes.vercel.app
+https://github.com/Nelsolaa/Recomendacao_restaurantes
 
 ## O que o projeto faz
 
